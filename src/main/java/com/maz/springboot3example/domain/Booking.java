@@ -30,9 +30,13 @@ public class Booking {
             inverseJoinColumns = {@JoinColumn(name = "application_user_id")}
     )
     private Set<ApplicationUser> guests = new HashSet<>();
-    @ManyToOne
-    @JoinColumn(name = "resource_id")
-    private Resource resource;
+    @ManyToMany
+    @JoinTable(
+            name = "resource_booking",
+            joinColumns = {@JoinColumn(name = "booking_id")},
+            inverseJoinColumns = {@JoinColumn(name = "resource_id")}
+    )
+    private Set<Resource> resources = new HashSet<>();
     private OffsetDateTime startDateTime;
     private OffsetDateTime endDateTime;
     @CreationTimestamp

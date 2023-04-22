@@ -24,7 +24,7 @@ public class Resource {
     private Integer capacity;
     @Enumerated(EnumType.STRING)
     private ResourceType type;
-    @OneToMany(mappedBy = "resource")
+    @ManyToMany(mappedBy = "resources")
     private Set<Booking> bookings = new HashSet<>();
     @CreationTimestamp
     private OffsetDateTime createdAt;
