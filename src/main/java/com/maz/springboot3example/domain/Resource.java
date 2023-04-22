@@ -25,7 +25,7 @@ public class Resource {
     @Enumerated(EnumType.STRING)
     private ResourceType type;
     @OneToMany(mappedBy = "resource")
-    private Set<Reservation> reservations = new HashSet<>();
+    private Set<Booking> bookings = new HashSet<>();
     @CreationTimestamp
     private OffsetDateTime createdAt;
     @UpdateTimestamp

@@ -2,27 +2,30 @@ package com.maz.springboot3example.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.OffsetDateTime;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
-public class Reservation {
-
-    @EmbeddedId
-    private ReservationId id = new ReservationId();
-    @ManyToOne
-    @MapsId("resourceId")
-    private Resource resource;
-    @ManyToOne
-    @MapsId("applicationUserId")
-    private ApplicationUser applicationUser;
+public class Person {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+    private String firstName;
+    private String lastName;
+    private String email;
+    @ManyToMany(mappedBy = "guests")
+    private Set<Booking> reservations = new HashSet<>();
     @CreationTimestamp
     private OffsetDateTime createdAt;
     @UpdateTimestamp
