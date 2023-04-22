@@ -27,9 +27,9 @@ public class Booking {
     @JoinTable(
             name = "guests_booking",
             joinColumns = {@JoinColumn(name = "booking_id")},
-            inverseJoinColumns = {@JoinColumn(name = "person_id")}
+            inverseJoinColumns = {@JoinColumn(name = "application_user_id")}
     )
-    private Set<Person> guests = new HashSet<>();
+    private Set<ApplicationUser> guests = new HashSet<>();
     @ManyToOne
     @JoinColumn(name = "resource_id")
     private Resource resource;
