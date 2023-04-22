@@ -29,7 +29,7 @@ public class ApplicationUser {
     private Set<Booking> reservations = new HashSet<>();
     @OneToMany(mappedBy = "booker")
     private Set<Booking> bookings = new HashSet<>();
-    @ManyToMany(mappedBy = "application_users")
+    @ManyToMany(mappedBy = "applicationUsers")
     private Set<Role> roles = new HashSet<>();
     @CreationTimestamp
     private OffsetDateTime createdAt;

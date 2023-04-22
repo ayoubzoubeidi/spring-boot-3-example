@@ -1,0 +1,118 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+    <changeSet id="1" author="MAZ">
+        <createTable tableName="application_user">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar(50)"/>
+            <column name="last_name" type="varchar(50)"/>
+            <column name="email" type="varchar(255)"/>
+            <column name="password" type="varchar(255)"/>
+            <column name="created_at" type="timestamp with time zone"/>
+            <column name="updated_at" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="MAZ">
+        <createTable tableName="role">
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="created_at" type="timestamp with time zone"/>
+            <column name="updated_at" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="MAZ">
+        <createTable tableName="authority">
+            <column name="permission" type="varchar(50)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="created_at" type="timestamp with time zone"/>
+            <column name="updated_at" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="MAZ">
+        <createTable tableName="application_users_roles">
+            <column name="application_user_id" type="uuid">
+                <constraints nullable="false" foreignKeyName="fk_user_roles_user_id" references="application_user(id)"/>
+            </column>
+            <column name="role" type="varchar(50)">
+                <constraints nullable="false" foreignKeyName="fk_user_roles_role_name" references="role(name)"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="5" author="MAZ">
+        <createTable tableName="roles_authorities">
+            <column name="role" type="varchar(50)">
+                <constraints nullable="false" foreignKeyName="fk_role_authority_role_name" references="role(name)"/>
+            </column>
+            <column name="permission" type="varchar(50)">
+                <constraints nullable="false" foreignKeyName="fk_role_authority_authority_permission" references="authority(permission)"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="6" author="MAZ">
+        <createTable tableName="resource">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="capacity" type="int"/>
+            <column name="type" type="resource_type_enum"/>
+            <column name="created_at" type="timestamp with time zone"/>
+            <column name="updated_at" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="7" author="MAZ">
+        <createTable tableName="booking">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+
+            <column name="booker_id" type="uuid">
+                <constraints nullable="false" foreignKeyName="fk_booker_booking" references="application_user(id)"/>
+            </column>
+
+            <column name="start_date_time" type="timestamp with time zone"/>
+            <column name="end_date_time" type="timestamp with time zone"/>
+            <column name="created_at" type="timestamp with time zone"/>
+            <column name="updated_at" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="8" author="MAZ">
+        <createTable tableName="guests_bookings">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="guest_id" type="uuid">
+                <constraints nullable="false" foreignKeyName="fk_guests_bookings_guest" references="application_user(id)"/>
+            </column>
+            <column name="booking_id" type="uuid">
+                <constraints nullable="false" foreignKeyName="fk_guests_bookings_booking" references="booking(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="9" author="MAZ">
+        <createTable tableName="resources_bookings">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="resource_id" type="uuid">
+                <constraints nullable="false" foreignKeyName="fk_resources_bookings_resource"
+                             references="resource(id)"/>
+            </column>
+            <column name="booking_id" type="uuid">
+                <constraints nullable="false" foreignKeyName="fk_guests_bookings_booking" references="booking(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

@@ -25,14 +25,14 @@ public class Booking {
     private ApplicationUser booker;
     @ManyToMany
     @JoinTable(
-            name = "guests_booking",
+            name = "guests_bookings",
             joinColumns = {@JoinColumn(name = "booking_id")},
-            inverseJoinColumns = {@JoinColumn(name = "application_user_id")}
+            inverseJoinColumns = {@JoinColumn(name = "guest_id")}
     )
     private Set<ApplicationUser> guests = new HashSet<>();
     @ManyToMany
     @JoinTable(
-            name = "resource_booking",
+            name = "resources_bookings",
             joinColumns = {@JoinColumn(name = "booking_id")},
             inverseJoinColumns = {@JoinColumn(name = "resource_id")}
     )

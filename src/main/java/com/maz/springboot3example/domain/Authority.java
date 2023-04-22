@@ -21,8 +21,8 @@ public class Authority {
 
     @ManyToMany
     @JoinTable(name = "roles_authorities",
-            joinColumns = {@JoinColumn(name = "authority_permission")},
-            inverseJoinColumns = {@JoinColumn(name = "role_name")}
+            joinColumns = {@JoinColumn(name = "permission")},
+            inverseJoinColumns = {@JoinColumn(name = "role")}
     )
     private Set<Role> roles = new HashSet<>();
     @CreationTimestamp

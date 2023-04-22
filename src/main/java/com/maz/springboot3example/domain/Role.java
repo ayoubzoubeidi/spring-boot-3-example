@@ -20,8 +20,8 @@ public class Role {
     private String name;
 
     @ManyToMany
-    @JoinTable(name = "application_user_roles",
-            joinColumns = {@JoinColumn(name = "role_name")},
+    @JoinTable(name = "application_users_roles",
+            joinColumns = {@JoinColumn(name = "role")},
             inverseJoinColumns = {@JoinColumn(name = "application_user_id")}
     )
     private Set<ApplicationUser> applicationUsers = new HashSet<>();
