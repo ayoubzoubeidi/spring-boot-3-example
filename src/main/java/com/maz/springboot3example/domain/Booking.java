@@ -8,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -16,14 +17,9 @@ import java.util.Set;
 @Builder
 @Entity
 public class Booking {
-
-    /**
-     * Long type for id in order to make it faster in DB,
-     * because a Numeric Data Types clustered index is faster than UUID in MySQL (this will be the most used table).
-     **/
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     @ManyToOne
     @JoinColumn(name = "booker_id")
     private ApplicationUser booker;
