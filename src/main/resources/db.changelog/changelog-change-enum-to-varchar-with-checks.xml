@@ -1,0 +1,17 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+    <changeSet id="10" author="MAZ">
+        <modifyDataType tableName="resource" columnName="type" newDataType="varchar(20)"/>
+    </changeSet>
+    <changeSet id="11" author="MAZ">
+        <sql>ALTER TABLE resource
+            ADD CONSTRAINT check_type_enum_values_constraint CHECK (type IN ('SINGLE', 'DOUBLE', 'STUDIO', 'DELUXE', 'SUITE', 'PRESIDENTIAL_SUITE', 'SINGLE_WITH_VIEW', 'DOUBLE_WITH_VIEW', 'STUDIO_WITH_VIEW', 'DELUXE_WITH_VIEW', 'SUITE_WITH_VIEW', 'PRESIDENTIAL_WITH_VIEW'));</sql>
+    </changeSet>
+</databaseChangeLog>

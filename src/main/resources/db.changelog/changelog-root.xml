@@ -6,4 +6,5 @@
 
     <include file="db.changelog/changelog-types.xml"/>
     <include file="db.changelog/changelog-baseline.xml"/>
+    <include file="db.changelog/changelog-change-enum-to-varchar-with-checks.xml"/>
 </databaseChangeLog>
