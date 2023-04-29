@@ -29,7 +29,6 @@ class ResourceServiceImplTest {
     private final String RESOURCE_NAME = "TEST_NAME";
     private final Integer RESOURCE_CAPACITY = 100;
     private final String RESOURCE_TYPE = ResourceType.SINGLE.toString();
-
     private Resource returnedResource;
     private CreateResourceRequest createResourceRequest;
 
@@ -53,9 +52,8 @@ class ResourceServiceImplTest {
 
     @Test
     public void createResourceHappyPathTest() {
-
         //given
-        when(resourceMapper.toDomain(any())).thenReturn(returnedResource);
+        when(resourceMapper.toDomain(createResourceRequest)).thenReturn(returnedResource);
         when(resourceRepository.saveAndFlush(any())).thenReturn(returnedResource);
 
         //when
@@ -63,7 +61,7 @@ class ResourceServiceImplTest {
 
         //then
         verify(resourceRepository, times(1)).saveAndFlush(any());
-        verify(resourceMapper, times(1)).toDomain(any());
+        verify(resourceMapper, times(1)).toDomain(createResourceRequest);
         assertEquals(RESOURCE_ID.toString(), expectedURI.toString());
     }
 }
