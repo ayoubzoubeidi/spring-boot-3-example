@@ -4,6 +4,7 @@ import com.maz.springboot3example.domain.Resource;
 import com.maz.springboot3example.repository.ResourceRepository;
 import com.maz.springboot3example.web.mappers.ResourceMapper;
 import com.maz.springboot3example.web.model.CreateResourceRequest;
+import com.maz.springboot3example.web.model.ResourceDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +21,11 @@ public class ResourceServiceImpl implements ResourceService {
     public UUID createResource(CreateResourceRequest createResourceRequest) {
         Resource resource = resourceMapper.toDomain(createResourceRequest);
         return resourceRepository.saveAndFlush(resource).getId();
+    }
+
+    @Override
+    public ResourceDetails getResourceById(UUID resourceId) {
+        // TODO change the runtime exception to custom exception to return RFC 7807 responses
+        return resourceRepository.findResultDetailById(resourceId).orElseThrow(RuntimeException::new);
     }
 }

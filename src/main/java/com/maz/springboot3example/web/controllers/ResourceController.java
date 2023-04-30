@@ -36,12 +36,12 @@ public class ResourceController {
         return ResponseEntity.created(location).build();
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/{resourceId}")
     public ResponseEntity<?> getResourceById(@PathVariable UUID resourceId) {
-        throw new NotImplementedException();
+        return ResponseEntity.ok(resourceService.getResourceById(resourceId));
     }
 
-    @PutMapping("/{userId}")
+    @PutMapping("/{resourceId}")
     public ResponseEntity<?> updateResource(@PathVariable UUID resourceId, @RequestBody CreateResourceRequest createResourceRequest) {
         throw new NotImplementedException();
     }
