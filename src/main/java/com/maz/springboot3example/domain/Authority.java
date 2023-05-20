@@ -18,7 +18,6 @@ import java.util.Set;
 public class Authority {
     @Id
     private String permission;
-
     @ManyToMany
     @JoinTable(name = "roles_authorities",
             joinColumns = {@JoinColumn(name = "permission")},
