@@ -1,11 +1,9 @@
 package com.maz.springboot3example.web.controllers;
 
-import com.maz.springboot3example.domain.Resource;
 import com.maz.springboot3example.service.ResourceService;
 import com.maz.springboot3example.web.model.CreateResourceRequest;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.NotImplementedException;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +24,6 @@ public class ResourceController {
     public ResponseEntity<?> createResource(@RequestBody CreateResourceRequest createResourceRequest) {
 
         UUID createdResourceId = resourceService.createResource(createResourceRequest);
-
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

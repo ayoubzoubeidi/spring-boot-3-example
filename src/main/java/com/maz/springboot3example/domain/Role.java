@@ -18,14 +18,12 @@ import java.util.Set;
 public class Role {
     @Id
     private String name;
-
     @ManyToMany
     @JoinTable(name = "application_users_roles",
             joinColumns = {@JoinColumn(name = "role")},
             inverseJoinColumns = {@JoinColumn(name = "application_user_id")}
     )
     private Set<ApplicationUser> applicationUsers = new HashSet<>();
-
     @ManyToMany(mappedBy = "roles")
     private Set<Authority> authorities = new HashSet<>();
     @CreationTimestamp
