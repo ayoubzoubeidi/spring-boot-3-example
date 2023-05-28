@@ -57,11 +57,11 @@ class ResourceServiceImplTest {
         when(resourceRepository.saveAndFlush(any())).thenReturn(returnedResource);
 
         //when
-        var returnedURI = resourceService.createResource(createResourceRequest);
+        var returnedId = resourceService.createResource(createResourceRequest);
 
         //then
         verify(resourceRepository, times(1)).saveAndFlush(any());
         verify(resourceMapper, times(1)).toDomain(createResourceRequest);
-        assertEquals(RESOURCE_ID.toString(), returnedURI.toString());
+        assertEquals(RESOURCE_ID.toString(), returnedId.toString());
     }
 }
