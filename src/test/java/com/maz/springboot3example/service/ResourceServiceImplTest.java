@@ -4,7 +4,7 @@ import com.maz.springboot3example.domain.Resource;
 import com.maz.springboot3example.domain.ResourceType;
 import com.maz.springboot3example.repository.ResourceRepository;
 import com.maz.springboot3example.web.mappers.ResourceMapper;
-import com.maz.springboot3example.web.model.CreateResourceRequest;
+import com.maz.springboot3example.web.model.CreateOrUpdateResourceRequest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,13 +30,13 @@ class ResourceServiceImplTest {
     private final Integer RESOURCE_CAPACITY = 100;
     private final String RESOURCE_TYPE = ResourceType.SINGLE.toString();
     private Resource returnedResource;
-    private CreateResourceRequest createResourceRequest;
+    private CreateOrUpdateResourceRequest createOrUpdateResourceRequest;
 
     @BeforeEach
     public void setup() {
         closeable = MockitoAnnotations.openMocks(this);
 
-        createResourceRequest = new CreateResourceRequest(RESOURCE_NAME, RESOURCE_CAPACITY, RESOURCE_TYPE);
+        createOrUpdateResourceRequest = new CreateOrUpdateResourceRequest(RESOURCE_NAME, RESOURCE_CAPACITY, RESOURCE_TYPE);
         resourceService = new ResourceServiceImpl(resourceRepository, resourceMapper);
 
         returnedResource =
@@ -53,15 +53,15 @@ class ResourceServiceImplTest {
     @Test
     public void createResourceHappyPathTest() {
         //given
-        when(resourceMapper.toDomain(createResourceRequest)).thenReturn(returnedResource);
+        when(resourceMapper.toDomain(createOrUpdateResourceRequest)).thenReturn(returnedResource);
         when(resourceRepository.saveAndFlush(any())).thenReturn(returnedResource);
 
         //when
-        var returnedId = resourceService.createResource(createResourceRequest);
+        var returnedId = resourceService.createResource(createOrUpdateResourceRequest);
 
         //then
         verify(resourceRepository, times(1)).saveAndFlush(any());
-        verify(resourceMapper, times(1)).toDomain(createResourceRequest);
+        verify(resourceMapper, times(1)).toDomain(createOrUpdateResourceRequest);
         assertEquals(RESOURCE_ID.toString(), returnedId.toString());
     }
 }

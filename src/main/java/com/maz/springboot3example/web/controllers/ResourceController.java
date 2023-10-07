@@ -1,7 +1,7 @@
 package com.maz.springboot3example.web.controllers;
 
 import com.maz.springboot3example.service.ResourceService;
-import com.maz.springboot3example.web.model.CreateResourceRequest;
+import com.maz.springboot3example.web.model.CreateOrUpdateResourceRequest;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +21,9 @@ public class ResourceController {
     private final ResourceService resourceService;
 
     @PostMapping
-    public ResponseEntity<?> createResource(@RequestBody CreateResourceRequest createResourceRequest) {
+    public ResponseEntity<?> createResource(@RequestBody CreateOrUpdateResourceRequest createOrUpdateResourceRequest) {
 
-        UUID createdResourceId = resourceService.createResource(createResourceRequest);
+        UUID createdResourceId = resourceService.createResource(createOrUpdateResourceRequest);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -39,7 +39,7 @@ public class ResourceController {
     }
 
     @PutMapping("/{resourceId}")
-    public ResponseEntity<?> updateResource(@PathVariable UUID resourceId, @RequestBody CreateResourceRequest createResourceRequest) {
+    public ResponseEntity<?> updateResource(@PathVariable UUID resourceId, @RequestBody CreateOrUpdateResourceRequest createOrUpdateResourceRequest) {
         throw new NotImplementedException();
     }
 }
