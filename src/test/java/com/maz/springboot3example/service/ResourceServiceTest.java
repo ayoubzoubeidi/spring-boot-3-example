@@ -68,6 +68,19 @@ class ResourceServiceTest {
     }
 
     @Test
+    public void getResourceByIdReturnsNotFoundException() {
+        //given
+        when(resourceRepository.existsById(RESOURCE_ID)).thenReturn(false);
+
+        //when
+        assertThrows(NotFoundException.class, () -> resourceService.getResourceById(RESOURCE_ID));
+
+
+        //then
+        verify(resourceRepository, times(0)).findResultDetailById(RESOURCE_ID);
+    }
+
+    @Test
     public void updateResourceHappyPathTest() {
         //given
         updateResourceRequest = new UpdateResourceRequest(RESOURCE_ID, RESOURCE_NAME, RESOURCE_CAPACITY, RESOURCE_TYPE);

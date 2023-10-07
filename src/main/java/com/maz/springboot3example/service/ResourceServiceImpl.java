@@ -28,6 +28,9 @@ public class ResourceServiceImpl implements ResourceService {
     @Override
     public ResourceDetails getResourceById(UUID resourceId) {
         // TODO change the runtime exception to custom exception to return RFC 7807 responses
+        if (!resourceRepository.existsById(resourceId)) {
+            throw new NotFoundException(String.format("Resource with id %s not found", resourceId));
+        }
         return resourceRepository.findResultDetailById(resourceId).orElseThrow(RuntimeException::new);
     }
 
