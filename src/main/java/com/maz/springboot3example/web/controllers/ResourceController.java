@@ -1,9 +1,9 @@
 package com.maz.springboot3example.web.controllers;
 
 import com.maz.springboot3example.service.ResourceService;
-import com.maz.springboot3example.web.model.CreateOrUpdateResourceRequest;
+import com.maz.springboot3example.web.model.CreateResourceRequest;
+import com.maz.springboot3example.web.model.UpdateResourceRequest;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +21,9 @@ public class ResourceController {
     private final ResourceService resourceService;
 
     @PostMapping
-    public ResponseEntity<?> createResource(@RequestBody CreateOrUpdateResourceRequest createOrUpdateResourceRequest) {
+    public ResponseEntity<?> createResource(@RequestBody CreateResourceRequest createResourceRequest) {
 
-        UUID createdResourceId = resourceService.createResource(createOrUpdateResourceRequest);
+        UUID createdResourceId = resourceService.createResource(createResourceRequest);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -38,8 +38,9 @@ public class ResourceController {
         return ResponseEntity.ok(resourceService.getResourceById(resourceId));
     }
 
-    @PutMapping("/{resourceId}")
-    public ResponseEntity<?> updateResource(@PathVariable UUID resourceId, @RequestBody CreateOrUpdateResourceRequest createOrUpdateResourceRequest) {
-        throw new NotImplementedException();
+    @PutMapping
+    public ResponseEntity<?> updateResource(@RequestBody UpdateResourceRequest updateResourceRequest) {
+        resourceService.updateResourceById(updateResourceRequest);
+        return ResponseEntity.noContent().build();
     }
 }
